@@ -1,0 +1,4 @@
+{
+    "socketServer": "https://echo.instantchatbot.net",
+    "socketPort": 6200
+}
