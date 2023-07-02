@@ -10,6 +10,7 @@ import * as socketService from './socketService';
 import Echart from '@/components/Echart';
 
 const option = {
+  title: {text: "My\nChart\nTitle\nIs\nHere", left: 'center'},
   tooltip: {
     trigger: 'axis',
     axisPointer: {
