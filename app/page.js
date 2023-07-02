@@ -10,13 +10,7 @@ import * as socketService from './socketService';
 import BarChart from '@/components/BarChart';
 
 const option = {
-  title: {text: "My\nChart\nTitle\nIs\nHere", left: 'center'},
-  tooltip: {
-    trigger: 'axis',
-    axisPointer: {
-      type: 'shadow'
-    }
-  },
+  title: {text: "My Chart Title", left: 'center'},
   series: [
     {
       data: [
@@ -31,7 +25,6 @@ const option = {
     }
   ]
 }; 
-
 
 export default function Home() {
   const msg = useSelector(state => state.msg);
@@ -48,7 +41,7 @@ export default function Home() {
         id='echartDiv1'
         option={option}
         category={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
-        orientation='vertical'
+        orientation='horizontal'
         height='50vh'
         width="50vw"
       />

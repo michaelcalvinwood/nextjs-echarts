@@ -3,6 +3,20 @@ import React, { useEffect } from 'react'
 import * as echarts from 'echarts'
 
 const BarChart = ({id, option, width, height, category, orientation}) => {
+  
+  /*
+   * Set ToolTip
+   */
+  option.tooltip = {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'shadow'
+    }
+  }
+
+  /*
+   * Set axises according to orientation
+   */
   if (orientation !== 'vertical') orientation = 'horizontal';
 
   if (orientation === 'horizontal') {
