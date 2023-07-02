@@ -7,7 +7,7 @@ import { setMsg } from '@/store/sliceMsg';
 import { useEffect } from 'react';
 import { Box, Button, Text } from '@chakra-ui/react';
 import * as socketService from './socketService';
-import Echart from '@/components/Echart';
+import BarChart from '@/components/BarChart';
 
 const option = {
   title: {text: "My\nChart\nTitle\nIs\nHere", left: 'center'},
@@ -16,13 +16,6 @@ const option = {
     axisPointer: {
       type: 'shadow'
     }
-  },
-  yAxis: {
-    type: 'category',
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-  },
-  xAxis: {
-    type: 'value'
   },
   series: [
     {
@@ -51,9 +44,11 @@ export default function Home() {
   })
   return (
     <Box display="flex" justifyContent={'center'} alignItems={'center'} height="100vh" width='100vw'>
-      <Echart 
+      <BarChart 
         id='echartDiv1'
         option={option}
+        category={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
+        orientation='vertical'
         height='50vh'
         width="50vw"
       />

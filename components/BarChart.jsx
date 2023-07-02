@@ -2,7 +2,26 @@
 import React, { useEffect } from 'react'
 import * as echarts from 'echarts'
 
-const Echart = ({id, option, width, height}) => {
+const BarChart = ({id, option, width, height, category, orientation}) => {
+  if (orientation !== 'vertical') orientation = 'horizontal';
+
+  if (orientation === 'horizontal') {
+    option.yAxis = {
+      type: 'category',
+      data: category
+    }
+    option.xAxis = {
+      type: 'value'
+    }
+  } else {
+    option.xAxis = {
+      type: 'category',
+      data: category
+    }
+    option.yAxis = {
+      type: 'value'
+    }
+  }
 
   const getTitleHeight = () => {
     const { title } = option;
@@ -35,4 +54,4 @@ const Echart = ({id, option, width, height}) => {
   )
 }
 
-export default Echart
+export default BarChart
