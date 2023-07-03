@@ -22,7 +22,7 @@ export default function Home() {
     let el = echartsOptions.find(echart => echart.selector === selector);
     let chartEl = document.querySelector(selector);
     let chart = echarts.init(chartEl);
-    dispatch(setTitle({selector, title: "Test Title"}));
+    dispatch(setTitle({selector, title: "Attendance"}));
     dispatch(addCategories({selector, index: 0, categories: [
       'sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'
     ]}))
@@ -32,13 +32,13 @@ export default function Home() {
         yAxisIndex: 0,
         data: [
           {value: 120}, 
-          {value: 200, label: {show: true}, itemStyle: {color: 'red'}}, 
+          {value: 200}, 
           {value: 150}, 
           {value: 80}, 
           {value: 70}, 
           {value: 110}, 
           {value: 130}],
-        type: 'bar'
+        type: 'line'
       
     }}))
 
