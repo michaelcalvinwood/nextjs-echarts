@@ -8,6 +8,8 @@ import { useEffect } from 'react';
 import { Box, Button, Text } from '@chakra-ui/react';
 import * as socketService from './socketService';
 import BarChart from '@/components/BarChart';
+import { addEchart, initializeEchart, setTitle } from '@/store/sliceEchartsOptions';
+import * as echarts from 'echarts'
 
 const option = {
   title: {text: "My Chart Title", left: 'center'},
@@ -28,23 +30,31 @@ const option = {
 
 export default function Home() {
   const msg = useSelector(state => state.msg);
+  const echartsOptions = useSelector(state => state.echartsOptions);
+
   const dispatch = useDispatch();
 
+  const buildChart = () => {
+    let el = echartsOptions.find(echart => echart.selector === '#echart1');
+    let chartEl = document.querySelector('#echart1');
+    let chart = echarts.init(chartEl);
+    if (!el.option.title.text) dispatch(setTitle({selector: '#echart1', title: "Test Title"}));
+    chart.setOption(el.option);
+    
+    setTimeout(() => dispatch(setTitle({selector: "#echart1", title: "Timeout"})), 2500);
+  }
+
   useEffect(() => {
-    setTimeout(() => {
-      socketService.emit('echo', {msg: 'echo this'});
-    }, 5000);
+    let el = echartsOptions.find(echart => echart.selector === '#echart1');
+    dispatch(addEchart({selector: '#echart1'}));
+    if (el) buildChart();
+    
   })
   return (
     <Box display="flex" justifyContent={'center'} alignItems={'center'} height="100vh" width='100vw'>
-      <BarChart 
-        id='echartDiv1'
-        option={option}
-        category={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
-        orientation='horizontal'
-        height='50vh'
-        width="50vw"
-      />
+      <Box id="echart1" height="50vh" width="50vw">
+
+      </Box>
     </Box>
   )
 }
