@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { Box, Button, Text } from '@chakra-ui/react';
 import * as socketService from './socketService';
 import BarChart from '@/components/BarChart';
-import { addEchart, initializeEchart, setTitle } from '@/store/sliceEchartsOptions';
+import { addEchart, addSeries, setTitle } from '@/store/sliceEchartsOptions';
 import * as echarts from 'echarts'
 
 const option = {
@@ -38,10 +38,25 @@ export default function Home() {
     let el = echartsOptions.find(echart => echart.selector === '#echart1');
     let chartEl = document.querySelector('#echart1');
     let chart = echarts.init(chartEl);
-    if (!el.option.title.text) dispatch(setTitle({selector: '#echart1', title: "Test Title"}));
+    dispatch(setTitle({selector: '#echart1', title: "Test Title"}));
     chart.setOption(el.option);
     
-    setTimeout(() => dispatch(setTitle({selector: "#echart1", title: "Timeout"})), 2500);
+    dispatch(addSeries({selector: '#echart1', series: {
+        id: 'attendance',
+        xAxisIndex: 0,
+        yAxisIndex: 0,
+        data: [
+          {value: 120}, 
+          {value: 200}, 
+          {value: 150}, 
+          {value: 80}, 
+          {value: 70}, 
+          {value: 110}, 
+          {value: 130}],
+        type: 'bar'
+      
+    }}))
+    
   }
 
   useEffect(() => {
