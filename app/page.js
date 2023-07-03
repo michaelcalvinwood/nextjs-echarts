@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { Box, Button, Text } from '@chakra-ui/react';
 import * as socketService from './socketService';
 import BarChart from '@/components/BarChart';
-import { addEchart, addSeries, setTitle } from '@/store/sliceEchartsOptions';
+import { addCategories, addEchart, addSeries, setTitle } from '@/store/sliceEchartsOptions';
 import * as echarts from 'echarts'
 
 const option = {
@@ -56,6 +56,10 @@ export default function Home() {
         type: 'bar'
       
     }}))
+
+    dispatch(addCategories({selector: '#echart1', index: 0, categories: [
+      'sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'
+    ]}))
     
   }
 
