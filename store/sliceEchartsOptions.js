@@ -3,17 +3,18 @@ import * as echarts from 'echarts'
 
 const initOption = {
     meta: {
-        orientation: 'horizontal'
+        orientation: 'vertical'
     },
     title: {},
     xAxis: [
         {
-            type: 'value'
+            type: 'category',
+            data: []
         }
     ],
     yAxis: [
         {
-            type: 'category',
+            type: 'value',
             data: []
         }
     ],
@@ -72,11 +73,11 @@ const sliceEchartsOptions = createSlice({
             if (!el) return state;
 
             if (el.option.meta.orientation === 'horizontal') {
-                if (!el.option.yAxis[index].data) el.option.yAxis[index].data = [];
+                //if (!el.option.yAxis[index].data) el.option.yAxis[index].data = [];
                 if (!el.option.yAxis[index].data.length) el.option.yAxis[index].data = [...categories];
             }
             else {
-                if (!el.option.xAxis[index].data) el.option.xAxis[index].data = [];
+                //if (!el.option.xAxis[index].data) el.option.xAxis[index].data = [];
                 if (!el.option.xAxis[index].data.length) el.option.xAxis[index].data = [...categories];
             }
             return state;

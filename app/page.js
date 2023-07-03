@@ -11,23 +11,6 @@ import BarChart from '@/components/BarChart';
 import { addCategories, addEchart, addSeries, setTitle } from '@/store/sliceEchartsOptions';
 import * as echarts from 'echarts'
 
-const option = {
-  title: {text: "My Chart Title", left: 'center'},
-  series: [
-    {
-      data: [
-        {value: 120, label: {show: true}, name: 'hola'}, 
-        {value: 200, itemStyle: {color: 'red'}}, 
-        {value: 150}, 
-        {value: 80}, 
-        {value: 70}, 
-        {value: 110}, 
-        {value: 130}],
-      type: 'bar'
-    }
-  ]
-}; 
-
 export default function Home() {
   const msg = useSelector(state => state.msg);
   const echartsOptions = useSelector(state => state.echartsOptions);
@@ -35,19 +18,21 @@ export default function Home() {
   const dispatch = useDispatch();
 
   const buildChart = () => {
-    let el = echartsOptions.find(echart => echart.selector === '#echart1');
-    let chartEl = document.querySelector('#echart1');
+    const selector = '#echart1'
+    let el = echartsOptions.find(echart => echart.selector === selector);
+    let chartEl = document.querySelector(selector);
     let chart = echarts.init(chartEl);
-    dispatch(setTitle({selector: '#echart1', title: "Test Title"}));
-    chart.setOption(el.option);
-    
-    dispatch(addSeries({selector: '#echart1', series: {
+    dispatch(setTitle({selector, title: "Test Title"}));
+    dispatch(addCategories({selector, index: 0, categories: [
+      'sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'
+    ]}))
+    dispatch(addSeries({selector, series: {
         id: 'attendance',
         xAxisIndex: 0,
         yAxisIndex: 0,
         data: [
           {value: 120}, 
-          {value: 200}, 
+          {value: 200, label: {show: true}, itemStyle: {color: 'red'}}, 
           {value: 150}, 
           {value: 80}, 
           {value: 70}, 
@@ -57,9 +42,8 @@ export default function Home() {
       
     }}))
 
-    dispatch(addCategories({selector: '#echart1', index: 0, categories: [
-      'sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'
-    ]}))
+   
+    chart.setOption(el.option);
     
   }
 
